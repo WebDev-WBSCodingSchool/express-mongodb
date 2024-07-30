@@ -49,6 +49,8 @@ export const updateUser = asyncHandler(async (req, res) => {
     body: { firstName, lastName, email },
     params: { id }
   } = req;
+  if (!firstName || !lastName || !email)
+    throw new ErrorResponse('Please provide all required fields', 400);
   const objectID = ObjectId.createFromHexString(id);
   const updatedUser = await client
     .db(databaseName)
